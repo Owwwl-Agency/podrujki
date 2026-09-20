@@ -1,0 +1,38 @@
+export const products = [
+  {
+    id: "p1",
+    category: "Уход",
+    title: "Дезодорант с комплексом пробиотиков",
+    subtitle: "Дезодорант с комплексом пробиотиков \"Грейфрут ...\"",
+    oldPrice: "5990",
+    price: "2990₽",
+    image: "assets/images/products/p1.png",
+  },
+  {
+    id: "p2",
+    category: "Бады",
+    title: "Витамин D3 500 ME спрей",
+    subtitle: "Витамин D3 500 ME спрей, 30 мл",
+    oldPrice: null,
+    price: "2100₽",
+    image: "assets/images/products/p2.png",
+  },
+  {
+    id: "p3",
+    category: "Бады",
+    title: "Хром пиколинат, Хромексен",
+    subtitle: "Хромексен, 60 таблетки, Dr.Zubareva",
+    oldPrice: null,
+    price: "1300₽",
+    image: "assets/images/products/p3.png",
+  },
+  {
+    id: "p4",
+    category: "Бады",
+    title: "Комплекс для похудения, Весолайт",
+    subtitle: "Весолайт, Комплекс для похудения, 60 капсул, ...",
+    oldPrice: null,
+    price: "2700₽",
+    image: "assets/images/products/p4.png",
+  },
+];

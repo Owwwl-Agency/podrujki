@@ -1,0 +1,140 @@
+.specialists {
+  padding: 35px var(--space-page) 0px;
+}
+
+.specialists .section__title {
+  color: var(--color-black);
+}
+
+.specialists__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.specialist-card {
+  position: relative;
+  background: var(--color-bg-warm);
+  border: 1px solid rgba(32, 32, 32, 0.05);
+  border-radius: var(--radius-sm);
+  padding: 13px 10px;
+  filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.05));
+}
+
+.specialist-card__fav {
+  position: absolute;
+  top: 16px;
+  right: 17px;
+  width: auto;
+  height: auto;
+  padding: 0;
+  line-height: 0;
+  background: transparent;
+}
+
+.specialist-card__fav img {
+  display: block;
+  width: 10px;
+  height: 8px;
+  object-fit: contain;
+}
+
+.specialist-card__top {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #E7E5E0;
+  margin-bottom: 10px;
+}
+
+.specialist-card__avatar {
+  width: 85px;
+  height: 85px;
+  border-radius: 200px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.specialist-card__info {
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.specialist-card__name {
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.14px;
+  line-height: 13px;
+  margin-bottom: 6px;
+}
+
+.specialist-card__role {
+  color: var(--color-gray);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.14px;
+  line-height: 13px;
+  margin-bottom: 6px;
+}
+
+.specialist-card__services {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 14px;
+  color: rgba(32, 32, 32, 0.95);
+  margin-bottom: 6px;
+}
+
+.specialist-card__services strong {
+  font-weight: 700;
+}
+
+.specialist-card .rating {
+  height: 13px;
+  color: var(--color-gray);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+}
+
+.specialist-card .rating span {
+  line-height: 13px;
+  height: 13px;
+}
+
+.specialist-card__bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.specialist-card__place {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.specialist-card__place .location,
+.specialist-card__place .metro {
+  display: grid;
+  grid-template-columns: 13px 1fr;
+  column-gap: 10px;
+  align-items: center;
+}
+
+.specialist-card__place .location img,
+.specialist-card__place .metro__icon {
+  width: 13px;
+  height: 16px;
+  object-fit: contain;
+  object-position: center;
+  justify-self: center;
+}
+
+.specialists__more {
+  margin-top: 15px;
+  width: 100%;
+}

@@ -1,0 +1,47 @@
+@font-face {
+  font-family: "CoFo Sans";
+  src: url("../../assets/fonts/CoFoSans-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "CoFo Sans";
+  src: url("../../assets/fonts/CoFoSans-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "CoFo Sans";
+  src: url("../../assets/fonts/CoFoSans-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Salina";
+  src: url("../../assets/fonts/Salina-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Salina";
+  src: url("../../assets/fonts/Salina-Medium.otf") format("opentype");
+  font-weight: 496;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Salina";
+  src: url("../../assets/fonts/Salina-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}

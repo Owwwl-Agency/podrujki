@@ -1,0 +1,132 @@
+.news {
+  padding: 20px 0 15px;
+  background: var(--color-bg-warm);
+}
+
+.news .section__title {
+  padding: 0 var(--space-page);
+  margin-bottom: 20px;
+}
+
+.news-card {
+  position: relative;
+  margin: 0 var(--space-page);
+  width: calc(100% - var(--space-page) * 2);
+  aspect-ratio: 350 / 550;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  color: var(--color-on-dark);
+}
+
+.news-card__slides {
+  position: absolute;
+  inset: 0;
+}
+
+.news-card__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.news-card__slide.is-active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.news-card__bg {
+  position: absolute;
+  inset: 0;
+}
+
+.news-card__menu {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 35px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-card__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 5px 15px;
+  border-bottom: 1px solid rgba(244, 242, 241, 0.45);
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.news-card__item:last-child {
+  margin-bottom: 0;
+}
+
+.news-card__label {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+.news-card__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(244, 242, 241, 0.50);
+  flex-shrink: 0;
+  transition: background 0.25s ease;
+}
+
+.news-card__dot.is-active {
+  background: #6AA2C7;
+}
+
+.news-card__panels {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  z-index: 3;
+}
+
+.news-card__panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.news-card__panel.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  position: relative;
+}
+
+.news-card__text {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.news-card__panel .btn {
+  width: 100%;
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .news-card__slide,
+  .news-card__panel {
+    transition: none;
+  }
+}

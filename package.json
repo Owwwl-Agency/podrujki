@@ -1,0 +1,11 @@
+{
+  "name": "podrujki",
+  "private": true,
+  "scripts": {
+    "start": "npx --yes serve . -p 5173",
+    "dev": "npx --yes serve . -p 5173"
+  },
+  "dependencies": {
+    "sharp": "^0.35.4"
+  }
+}

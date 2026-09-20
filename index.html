@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#faf9f6" />
+    <meta name="description" content="Подружки — услуги сети клиник: лазерная эпиляция, косметология, специалисты рядом." />
+    <title>Подружки — Услуги</title>
+
+    <link rel="stylesheet" href="css/base/reset.css" />
+    <link rel="stylesheet" href="css/base/variables.css" />
+    <link rel="stylesheet" href="css/base/fonts.css" />
+    <link rel="stylesheet" href="css/layout/app.css" />
+    <link rel="stylesheet" href="css/modules/header.css" />
+    <link rel="stylesheet" href="css/modules/search.css" />
+    <link rel="stylesheet" href="css/modules/categories.css" />
+    <link rel="stylesheet" href="css/modules/popular.css" />
+    <link rel="stylesheet" href="css/modules/offers.css" />
+    <link rel="stylesheet" href="css/modules/clinics.css" />
+    <link rel="stylesheet" href="css/modules/news.css" />
+    <link rel="stylesheet" href="css/modules/specialists.css" />
+    <link rel="stylesheet" href="css/modules/products.css" />
+    <link rel="stylesheet" href="css/modules/navbar.css" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <!-- Shell is static; lists below are filled from data layer -->
+      <header class="header" data-block="header">
+        <button class="header__back" type="button" aria-label="Назад">
+          <img src="assets/icons/arrow-left.svg" alt="" />
+        </button>
+        <div class="header__center">
+          <h1 class="header__title" data-text="header.title"></h1>
+          <div class="header__crumbs" data-bind="header.breadcrumbs"></div>
+        </div>
+        <button class="header__cart" type="button" aria-label="Корзина">
+          <span class="header__cart-count" data-text="header.cartCount"></span>
+          <img src="assets/icons/bag.svg" alt="" />
+        </button>
+      </header>
+
+      <main class="app__main">
+        <section class="search" data-block="search">
+          <label class="search__field">
+            <img src="assets/icons/search.svg" alt="" />
+            <input
+              class="search__input"
+              type="search"
+              placeholder="Поиск услуг, клиник, специалистов"
+              data-attr-placeholder="search.placeholder"
+            />
+          </label>
+          <div class="search__tabs" data-bind="search.tabs" role="tablist"></div>
+        </section>
+
+        <section class="categories" data-block="categories">
+          <div class="categories__grid" data-bind="categories"></div>
+          <button class="categories__cta" type="button" data-text="categories.cta">
+            <span>Подбор процедур</span>
+            <span class="categories__cta-icon">
+              <img src="assets/icons/link.svg" alt="" />
+            </span>
+          </button>
+        </section>
+
+        <section class="popular" data-block="popular">
+          <h2 class="section__title" data-text="popular.title">Популярные</h2>
+          <div class="popular__viewport">
+            <div class="popular__track" data-bind="popular"></div>
+          </div>
+        </section>
+
+        <section class="offers" data-block="offers">
+          <h2 class="section__title" data-text="offers.title">Специальные предложения</h2>
+          <div data-bind="offers"></div>
+        </section>
+
+        <section class="clinics" data-block="clinics">
+          <div class="section__head">
+            <h2 class="section__title" data-text="clinics.title">Клиники рядом</h2>
+            <button class="section__aside section__aside--dark" type="button">
+              <span data-text="clinics.map">На карте</span>
+              <img src="assets/icons/map-cream.svg" alt="" width="19" height="19" />
+            </button>
+          </div>
+          <div class="clinics__list" data-bind="clinics"></div>
+          <button class="btn btn--outline clinics__more" type="button" data-text="clinics.searchLocation">
+            Поиск по локации
+          </button>
+        </section>
+
+        <section class="news" data-block="news">
+          <h2 class="section__title" data-text="news.title">Актуальное</h2>
+          <div data-bind="news"></div>
+        </section>
+
+        <section class="specialists" data-block="specialists">
+          <div class="section__head">
+            <h2 class="section__title" data-text="specialists.title">Специалисты рядом</h2>
+            <button class="section__aside section__aside--dark" type="button">
+              <span data-text="specialists.map">На карте</span>
+              <img src="assets/icons/map-cream.svg" alt="" width="19" height="19" />
+            </button>
+          </div>
+          <div class="specialists__list" data-bind="specialists"></div>
+          <button class="btn btn--outline specialists__more" type="button" data-text="specialists.searchLocation">
+            Поиск по локации
+          </button>
+        </section>
+
+        <section class="products" data-block="products">
+          <h2 class="section__title" data-text="products.title">Новинки</h2>
+          <div class="products__grid" data-bind="products"></div>
+          <button class="btn btn--outline products__more" type="button" data-text="products.cta">
+            Перейти к покупкам
+          </button>
+        </section>
+      </main>
+
+      <nav class="navbar" data-block="navbar" aria-label="Главное меню">
+        <span class="navbar__indicator" aria-hidden="true"></span>
+        <button class="navbar__item is-active" type="button" data-nav="search" aria-label="Поиск">
+          <img src="assets/icons/nav-search.svg" alt="" />
+        </button>
+        <button class="navbar__item" type="button" data-nav="catalog" aria-label="Каталог">
+          <img src="assets/icons/nav-catalog.svg" alt="" />
+        </button>
+        <button class="navbar__item" type="button" data-nav="calendar" aria-label="Записи">
+          <img src="assets/icons/nav-calendar.svg" alt="" />
+        </button>
+        <button class="navbar__item" type="button" data-nav="sales" aria-label="Акции">
+          <img src="assets/icons/nav-tag.svg" alt="" />
+        </button>
+        <button class="navbar__item" type="button" data-nav="profile" aria-label="Профиль">
+          <img src="assets/icons/nav-profile.svg" alt="" />
+        </button>
+      </nav>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

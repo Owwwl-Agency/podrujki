@@ -1,0 +1,85 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  width: 100%;
+  max-width: var(--app-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 43px 1fr 43px;
+  align-items: center;
+  gap: 12px;
+  height: var(--header-height);
+  padding: 0 20px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.header__back {
+  width: 43px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.header__back img {
+  width: auto;
+  height: 14px;
+}
+
+.header__center {
+  text-align: center;
+  min-width: 0;
+}
+
+.header__title {
+  /* font-family: "SF Pro Rounded"; */
+  font-size: 14px;
+  line-height: 15px;
+  font-weight: 500;
+  letter-spacing: 0.14px;
+  margin-bottom: 8px;
+}
+
+.header__crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.11px;
+  color: var(--color-gray-light);
+  line-height: 1;
+}
+
+.header__crumb-sep {
+  /* border keeps a sharp 1px line; width+bg blurs under subpixel layout */
+  flex-shrink: 0;
+  width: 0;
+  height: 8px;
+  border-left: 1px solid var(--color-gray-light);
+}
+
+.header__cart {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 43px;
+  justify-content: flex-end;
+}
+
+.header__cart-count {
+  font-size: 12px;
+  letter-spacing: 0.12px;
+  color: var(--color-text-soft);
+}
+
+.header__cart img {
+  width: 24px;
+  height: 24px;
+}

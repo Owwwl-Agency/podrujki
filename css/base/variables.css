@@ -1,0 +1,42 @@
+:root {
+  --color-bg: #faf9f6;
+  --color-bg-warm: #f7f3ee;
+  --color-surface: #f9f7f6;
+  --color-white: #ffffff;
+  --color-black: #000;
+  --color-text: #202020;
+  --color-text-muted: rgba(32, 32, 32, 0.5);
+  --color-text-soft: rgba(32, 32, 32, 0.75);
+  --color-text-faint: rgba(32, 32, 32, 0.35);
+  --color-gray: #8b8987;
+  --color-gray-light: #aca9a6;
+  --color-border: rgba(231, 229, 224, 0.75);
+  --color-border-soft: rgba(231, 229, 224, 0.45);
+  --color-border-faint: rgba(231, 229, 224, 0.35);
+  --color-card-border: #f1efec;
+  --color-accent: #4a90e2;
+  --color-nav-active: rgba(205, 235, 255, 0.15);
+  --color-cream-btn: #f7f3ee;
+  --color-on-dark: #f4f2f1;
+
+  --font-sans: "SF Pro Rounded", "CoFo Sans", sans-serif;
+  --font-serif: "New York", "Salina", serif;
+
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 30px;
+  --radius-pill: 70px;
+
+  --space-page: 20px;
+  --app-max: 1024px;
+  --header-height: 60px;
+  --nav-height: 95px;
+
+  --shadow-soft: 0 2px 15px rgba(0, 0, 0, 0.04);
+  --shadow-input: 2px 2px 15px rgba(0, 0, 0, 0.05);
+  --shadow-tag: 1px 1px 4px 0 rgba(0, 0, 0, 0.05);
+  --shadow-nav: 1px 1px 4px rgba(0, 0, 0, 0.1);
+  --bg-share: linear-gradient(0deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%), rgba(237, 245, 244, 0.8);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
