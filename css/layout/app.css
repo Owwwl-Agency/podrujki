@@ -86,8 +86,6 @@
   display: block;
   line-height: 12px;
   height: 12px;
-  leading-trim: both;
-  text-edge: cap;
 }
 
 .metro {
