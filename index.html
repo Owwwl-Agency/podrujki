@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/layout/app.css" />
     <link rel="stylesheet" href="css/modules/header.css" />
     <link rel="stylesheet" href="css/modules/search.css" />
+    <link rel="stylesheet" href="css/modules/filter-popup.css" />
     <link rel="stylesheet" href="css/modules/categories.css" />
     <link rel="stylesheet" href="css/modules/popular.css" />
     <link rel="stylesheet" href="css/modules/offers.css" />
@@ -44,15 +45,16 @@
 
       <main class="app__main">
         <section class="search" data-block="search">
-          <label class="search__field">
+          <div class="search__field">
             <img src="assets/icons/search.svg" alt="" />
             <input
               class="search__input"
               type="search"
               placeholder="Поиск услуг, клиник, специалистов"
               data-attr-placeholder="search.placeholder"
+              readonly
             />
-          </label>
+          </div>
           <div class="search__tabs" data-bind="search.tabs" role="tablist"></div>
         </section>
 

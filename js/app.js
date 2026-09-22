@@ -22,7 +22,12 @@ async function init() {
     const { dict } = data;
 
     bindHeader(app.querySelector('[data-block="header"]'), data.header);
-    bindSearch(app.querySelector('[data-block="search"]'), data.search);
+    bindSearch(app.querySelector('[data-block="search"]'), data.search, {
+      labels: data.filter,
+      procedures: data.procedures,
+      mapPins: data.mapPins,
+      timeSlots: data.timeSlots,
+    });
     bindCategories(app.querySelector('[data-block="categories"]'), data.categories, dict.categories);
     bindPopular(app.querySelector('[data-block="popular"]'), data.popular, dict.popular);
     bindOffers(app.querySelector('[data-block="offers"]'), data.offers, dict.offers);

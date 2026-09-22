@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#faf9f6" />
+    <meta name="description" content="Подружки — результаты поиска услуг" />
+    <title>Подружки — Результаты поиска</title>
+
+    <link rel="stylesheet" href="css/base/reset.css" />
+    <link rel="stylesheet" href="css/base/variables.css" />
+    <link rel="stylesheet" href="css/base/fonts.css" />
+    <link rel="stylesheet" href="css/layout/app.css" />
+    <link rel="stylesheet" href="css/modules/header.css" />
+    <link rel="stylesheet" href="css/modules/search.css" />
+    <link rel="stylesheet" href="css/modules/filter-popup.css" />
+    <link rel="stylesheet" href="css/modules/results.css" />
+  </head>
+  <body class="page-results">
+    <div class="app" id="app">
+      <header class="header" data-block="header">
+        <a class="header__back" href="index.html" aria-label="Назад">
+          <img src="assets/icons/arrow-left.svg" alt="" />
+        </a>
+        <div class="header__center">
+          <h1 class="header__title" data-text="header.title">Услуги</h1>
+          <div class="header__crumbs" data-bind="header.breadcrumbs"></div>
+        </div>
+        <button class="header__cart" type="button" aria-label="Корзина">
+          <span class="header__cart-count" data-text="header.cartCount">37</span>
+          <img src="assets/icons/bag.svg" alt="" />
+        </button>
+      </header>
+
+      <main class="app__main results-main">
+        <div class="results-sticky">
+          <section class="results-search" data-block="search">
+            <div class="results-search__field search__field">
+              <img src="assets/icons/search.svg" alt="" />
+              <input
+                class="search__input results-search__input"
+                type="search"
+                placeholder="Поиск услуг, клиник, специалистов"
+                readonly
+              />
+              <button class="results-search__map" type="button" aria-label="На карте">
+                <img src="assets/icons/map-dark.svg" alt="" />
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <section class="results-tags" data-block="tags" aria-label="Фильтры"></section>
+
+        <section class="services-list" data-block="services" aria-label="Услуги"></section>
+      </main>
+
+      <div class="results-bar" data-block="bar" aria-hidden="true">
+        <div class="results-bar__meta">
+          <span class="results-bar__price" data-text="bar.price">0₽</span>
+          <span class="results-bar__sep" aria-hidden="true"></span>
+          <span class="results-bar__count" data-text="bar.count">0 позиций</span>
+        </div>
+        <button class="results-bar__cta" type="button">
+          <span>Продолжить</span>
+          <img src="assets/icons/arrow-right.svg" alt="" />
+        </button>
+      </div>
+    </div>
+
+    <script type="module" src="js/products-app.js"></script>
+  </body>
+</html>
