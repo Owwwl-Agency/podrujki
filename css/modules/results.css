@@ -293,19 +293,34 @@
   height: 27px;
   display: block;
   pointer-events: none;
-  transform: scale(1);
-  transition: transform 0.38s var(--ease);
+  transition: opacity 0.32s var(--ease), transform 0.38s var(--ease);
 }
 
-.service-card.is-selected .service-card__radio-ring {
+.service-card__radio-ring--off {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.service-card__radio-ring--on {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+.service-card.is-selected .service-card__radio-ring--off {
+  opacity: 0;
   transform: scale(1.06);
 }
 
-.service-card__radio-dot {
+.service-card.is-selected .service-card__radio-ring--on {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.service-card__radio-check {
   position: relative;
   z-index: 1;
-  width: 15px;
-  height: 15px;
+  width: 9px;
+  height: 9px;
   display: block;
   opacity: 0;
   transform: scale(0.35);
@@ -315,7 +330,7 @@
   pointer-events: none;
 }
 
-.service-card.is-selected .service-card__radio-dot {
+.service-card.is-selected .service-card__radio-check {
   opacity: 1;
   transform: scale(1);
 }
@@ -408,7 +423,7 @@
   .results-bar,
   .service-card,
   .service-card__radio-ring,
-  .service-card__radio-dot {
+  .service-card__radio-check {
     transition: none !important;
   }
 }

@@ -59,13 +59,18 @@ function renderServices(root, items, onSelect) {
   items.forEach((item) => {
     const radio = el("span", { className: "service-card__radio", "aria-hidden": "true" }, [
       el("img", {
-        className: "service-card__radio-ring",
+        className: "service-card__radio-ring service-card__radio-ring--off",
         src: "assets/icons/radio.svg",
         alt: "",
       }),
       el("img", {
-        className: "service-card__radio-dot",
-        src: "assets/icons/radio-dot.svg",
+        className: "service-card__radio-ring service-card__radio-ring--on",
+        src: "assets/icons/radio-on.svg",
+        alt: "",
+      }),
+      el("img", {
+        className: "service-card__radio-check",
+        src: "assets/icons/radio-check.svg",
         alt: "",
       }),
     ]);

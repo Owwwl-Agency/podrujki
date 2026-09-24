@@ -28,7 +28,9 @@ async function init() {
       mapPins: data.mapPins,
       timeSlots: data.timeSlots,
     });
-    bindCategories(app.querySelector('[data-block="categories"]'), data.categories, dict.categories);
+    bindCategories(app.querySelector('[data-block="categories"]'), data.categories, dict.categories, {
+      cartCount: data.header.cartCount,
+    });
     bindPopular(app.querySelector('[data-block="popular"]'), data.popular, dict.popular);
     bindOffers(app.querySelector('[data-block="offers"]'), data.offers, dict.offers);
     bindClinics(app.querySelector('[data-block="clinics"]'), data.clinics, dict.clinics);
