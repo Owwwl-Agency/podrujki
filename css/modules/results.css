@@ -84,8 +84,9 @@
   padding: 0;
 }
 
-.results-search__map img {
-  width: 12.65px;
+.results-search__map img,
+.results-search__map-icon {
+  width: 12.66px;
   height: 14.85px;
   object-fit: contain;
 }
@@ -186,7 +187,6 @@
 .results-tag--filters.is-compact {
   gap: 0;
   padding: 0 8px;
-  margin-right: 10px;
 }
 
 .results-tag--filters.is-compact .results-tag__label {
@@ -200,6 +200,16 @@
   flex-direction: column;
   gap: 10px;
   padding: 0px var(--space-page) 40px;
+}
+
+.page-results .results-clinics,
+.page-results .results-specialists {
+  padding: 0 var(--space-page) 40px;
+}
+
+.page-results .clinic-card.is-clickable,
+.page-results .specialist-card.is-clickable {
+  cursor: pointer;
 }
 
 .service-card {

@@ -23,6 +23,12 @@ export function bindScrollChrome(elements = []) {
   };
 
   const onScroll = () => {
+    if (document.body.classList.contains("is-map-mode")) {
+      setHidden(false);
+      lastY = window.scrollY || 0;
+      return;
+    }
+
     const y = window.scrollY || 0;
     const dy = y - lastY;
 

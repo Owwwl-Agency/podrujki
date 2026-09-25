@@ -49,10 +49,22 @@ export async function loadHomePage() {
 }
 
 export async function loadProductsPage() {
+  return loadResultsPage("services");
+}
+
+/** @param {"services"|"clinics"|"specialists"} mode */
+export async function loadResultsPage(mode = "services") {
+  const titles = {
+    services: "Услуги",
+    clinics: "Клиники",
+    specialists: "Специалисты",
+  };
+
   return {
+    mode,
     dict,
     header: {
-      title: dict.header.title,
+      title: titles[mode] || titles.services,
       breadcrumbs: dict.header.breadcrumbs,
       cartCount: 37,
     },
@@ -67,6 +79,10 @@ export async function loadProductsPage() {
     mapPins,
     timeSlots,
     services: serviceResults,
+    clinics,
+    specialists,
+    clinicLabels: dict.clinics,
+    specialistLabels: dict.specialists,
     tags: resultsTags,
   };
 }

@@ -47,6 +47,10 @@ function specialistCard(item, reviewsFn) {
   ]);
 }
 
+export function createSpecialistCard(item, reviewsFn) {
+  return specialistCard(item, reviewsFn);
+}
+
 export function bindSpecialists(root, items, labels, reviewsFn) {
   const title = root.querySelector('[data-text="specialists.title"]');
   const map = root.querySelector('[data-text="specialists.map"]');

@@ -7,8 +7,8 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
     <meta name="theme-color" content="#faf9f6" />
-    <meta name="description" content="Подружки — результаты поиска услуг" />
-    <title>Подружки — Результаты поиска</title>
+    <meta name="description" content="Подружки — специалисты" />
+    <title>Подружки — Специалисты</title>
 
     <link rel="stylesheet" href="css/base/reset.css" />
     <link rel="stylesheet" href="css/base/variables.css" />
@@ -19,17 +19,19 @@
     <link rel="stylesheet" href="css/modules/filter-popup.css" />
     <link rel="stylesheet" href="css/modules/results-filters.css" />
     <link rel="stylesheet" href="css/modules/clinics.css" />
+    <link rel="stylesheet" href="css/modules/specialists.css" />
     <link rel="stylesheet" href="css/modules/results.css" />
     <link rel="stylesheet" href="css/modules/results-map.css" />
+    <link rel="stylesheet" href="css/modules/navbar.css" />
   </head>
-  <body class="page-results">
+  <body class="page-results page-results--specialists page-results--with-nav">
     <div class="app" id="app">
       <header class="header" data-block="header">
         <a class="header__back" href="index.html" aria-label="Назад">
           <img src="assets/icons/arrow-left.svg" alt="" />
         </a>
         <div class="header__center">
-          <h1 class="header__title" data-text="header.title">Услуги</h1>
+          <h1 class="header__title" data-text="header.title">Специалисты</h1>
           <div class="header__crumbs" data-bind="header.breadcrumbs"></div>
         </div>
         <button class="header__cart" type="button" aria-label="Корзина">
@@ -61,23 +63,30 @@
         <section class="results-tags" data-block="tags" aria-label="Фильтры"></section>
 
         <div class="results-stage">
-          <section class="services-list" data-block="results-list" aria-label="Услуги"></section>
+          <section class="specialists__list results-specialists" data-block="results-list" aria-label="Специалисты"></section>
         </div>
       </main>
 
-      <div class="results-bar" data-block="bar" aria-hidden="true">
-        <div class="results-bar__meta">
-          <span class="results-bar__price" data-text="bar.price">0₽</span>
-          <span class="results-bar__sep" aria-hidden="true"></span>
-          <span class="results-bar__count" data-text="bar.count">0 позиций</span>
-        </div>
-        <button class="results-bar__cta" type="button">
-          <span>Продолжить</span>
-          <img src="assets/icons/arrow-right.svg" alt="" />
+      <nav class="navbar" data-block="navbar" aria-label="Главное меню">
+        <span class="navbar__indicator" aria-hidden="true"></span>
+        <button class="navbar__item is-active" type="button" data-nav="search" aria-label="Поиск">
+          <img src="assets/icons/nav-search.svg" alt="" />
         </button>
-      </div>
+        <button class="navbar__item" type="button" data-nav="catalog" aria-label="Каталог">
+          <img src="assets/icons/nav-catalog.svg" alt="" />
+        </button>
+        <button class="navbar__item" type="button" data-nav="calendar" aria-label="Записи">
+          <img src="assets/icons/nav-calendar.svg" alt="" />
+        </button>
+        <button class="navbar__item" type="button" data-nav="sales" aria-label="Акции">
+          <img src="assets/icons/nav-tag.svg" alt="" />
+        </button>
+        <button class="navbar__item" type="button" data-nav="profile" aria-label="Профиль">
+          <img src="assets/icons/nav-profile.svg" alt="" />
+        </button>
+      </nav>
     </div>
 
-    <script type="module" src="js/products-app.js"></script>
+    <script type="module" src="js/specialists-app.js"></script>
   </body>
 </html>

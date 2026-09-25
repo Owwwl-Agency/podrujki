@@ -203,6 +203,10 @@ function clinicCard(item, labels) {
   return card;
 }
 
+export function createClinicCard(item, labels) {
+  return clinicCard(item, labels);
+}
+
 export function bindClinics(root, items, labels) {
   const title = root.querySelector('[data-text="clinics.title"]');
   const map = root.querySelector('[data-text="clinics.map"]');

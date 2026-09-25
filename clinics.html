@@ -7,8 +7,8 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
     <meta name="theme-color" content="#faf9f6" />
-    <meta name="description" content="Подружки — результаты поиска услуг" />
-    <title>Подружки — Результаты поиска</title>
+    <meta name="description" content="Подружки — клиники" />
+    <title>Подружки — Клиники</title>
 
     <link rel="stylesheet" href="css/base/reset.css" />
     <link rel="stylesheet" href="css/base/variables.css" />
@@ -22,14 +22,14 @@
     <link rel="stylesheet" href="css/modules/results.css" />
     <link rel="stylesheet" href="css/modules/results-map.css" />
   </head>
-  <body class="page-results">
+  <body class="page-results page-results--clinics">
     <div class="app" id="app">
       <header class="header" data-block="header">
         <a class="header__back" href="index.html" aria-label="Назад">
           <img src="assets/icons/arrow-left.svg" alt="" />
         </a>
         <div class="header__center">
-          <h1 class="header__title" data-text="header.title">Услуги</h1>
+          <h1 class="header__title" data-text="header.title">Клиники</h1>
           <div class="header__crumbs" data-bind="header.breadcrumbs"></div>
         </div>
         <button class="header__cart" type="button" aria-label="Корзина">
@@ -61,23 +61,11 @@
         <section class="results-tags" data-block="tags" aria-label="Фильтры"></section>
 
         <div class="results-stage">
-          <section class="services-list" data-block="results-list" aria-label="Услуги"></section>
+          <section class="clinics__list results-clinics" data-block="results-list" aria-label="Клиники"></section>
         </div>
       </main>
-
-      <div class="results-bar" data-block="bar" aria-hidden="true">
-        <div class="results-bar__meta">
-          <span class="results-bar__price" data-text="bar.price">0₽</span>
-          <span class="results-bar__sep" aria-hidden="true"></span>
-          <span class="results-bar__count" data-text="bar.count">0 позиций</span>
-        </div>
-        <button class="results-bar__cta" type="button">
-          <span>Продолжить</span>
-          <img src="assets/icons/arrow-right.svg" alt="" />
-        </button>
-      </div>
     </div>
 
-    <script type="module" src="js/products-app.js"></script>
+    <script type="module" src="js/clinics-app.js"></script>
   </body>
 </html>

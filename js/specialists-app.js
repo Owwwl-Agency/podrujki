@@ -1,3 +1,3 @@
 import { initResultsPage } from "./results-app.js";
 
-initResultsPage("services");
+initResultsPage("specialists");

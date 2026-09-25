@@ -1,5 +1,5 @@
 import { el, clear } from "../utils/dom.js";
-import { filtersToParams, navigateWithFilters, saveFilters } from "../utils/filters-query.js";
+import { filtersToParams, navigateWithFilters, saveFilters, resultsPathForTab } from "../utils/filters-query.js";
 
 const MONTH_NAMES_FALLBACK = [
   "ЯНВАРЬ",
@@ -838,7 +838,7 @@ export function createFilterPopup({
       return;
     }
 
-    navigateWithFilters(state, "products.html");
+    navigateWithFilters(state, resultsPathForTab(state.tab));
   }
 
   function applyFiltersSnapshot(filters) {

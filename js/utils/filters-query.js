@@ -89,10 +89,17 @@ export function readFiltersFromLocation(search = window.location.search) {
   };
 }
 
-export function navigateWithFilters(state, path = "products.html") {
+export function resultsPathForTab(tab) {
+  if (tab === "clinics") return "clinics.html";
+  if (tab === "specialists") return "specialists.html";
+  return "products.html";
+}
+
+export function navigateWithFilters(state, path) {
+  const target = path || resultsPathForTab(state.tab);
   const params = filtersToParams(state);
   saveFilters(state);
-  const url = new URL(path, window.location.href);
+  const url = new URL(target, window.location.href);
   url.search = "";
   params.forEach((value, key) => url.searchParams.set(key, value));
   window.location.assign(url.href);
