@@ -9,6 +9,7 @@ import { bindNews } from "./modules/news.js";
 import { bindSpecialists } from "./modules/specialists.js";
 import { bindProducts } from "./modules/products.js";
 import { bindNavbar } from "./modules/navbar.js";
+import { bindScrollChrome } from "./utils/scroll-chrome.js";
 
 const app = document.querySelector("#app");
 
@@ -25,6 +26,8 @@ async function init() {
     bindSearch(app.querySelector('[data-block="search"]'), data.search, {
       labels: data.filter,
       procedures: data.procedures,
+      clinics: data.searchClinics,
+      specialists: data.searchSpecialists,
       mapPins: data.mapPins,
       timeSlots: data.timeSlots,
     });
@@ -43,6 +46,10 @@ async function init() {
     );
     bindProducts(app.querySelector('[data-block="products"]'), data.products, dict.products);
     bindNavbar(app.querySelector('[data-block="navbar"]'));
+
+    bindScrollChrome([
+      app.querySelector('[data-block="header"]'),
+    ]);
   } catch (error) {
     console.error(error);
   } finally {

@@ -17,6 +17,11 @@ export const dict = {
     title: "Сеть клиник “Подружки”",
     servicesTitle: "Услуги",
     recommended: "Рекомендуемые процедуры",
+    recommendedByTab: {
+      services: "Рекомендуемые процедуры",
+      clinics: "Рекомендуемые клиники",
+      specialists: "Рекомендуемые специалисты",
+    },
     procedureSearchPlaceholder: "Поиск услуг, клиник, специалистов",
     procedurePlaceholder: "Поиск процедур",
     addressTitle: "Адрес",

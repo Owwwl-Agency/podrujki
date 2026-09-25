@@ -121,6 +121,8 @@ export function createFilterPopup({
   tabs,
   labels,
   procedures,
+  clinics = [],
+  specialists = [],
   mapPins,
   timeSlots,
   initialFilters = null,
@@ -163,13 +165,32 @@ export function createFilterPopup({
   const tabsRow = el("div", { className: "filter-popup__tabs-row" }, [tabsEl, closeBtn]);
 
   const searchCardTitle = el("div", { className: "filter-card__title", text: "" });
+  const searchCardSubtitle = el("div", {
+    className: "filter-card__subtitle",
+    text: copy.recommended || "",
+  });
 
   function activeTabLabel() {
     return tabs.find((t) => t.id === state.tab)?.label || copy.servicesTitle || "Услуги";
   }
 
+  function activeRecommendedLabel() {
+    return (
+      copy.recommendedByTab?.[state.tab] ||
+      copy.recommended ||
+      "Рекомендуемые процедуры"
+    );
+  }
+
+  function catalogForTab() {
+    if (state.tab === "clinics") return clinics || [];
+    if (state.tab === "specialists") return specialists || [];
+    return procedures || [];
+  }
+
   function syncCardTitle() {
     searchCardTitle.textContent = activeTabLabel();
+    searchCardSubtitle.textContent = activeRecommendedLabel();
   }
 
   function renderTabs() {
@@ -225,7 +246,7 @@ export function createFilterPopup({
   const searchCard = el("div", { className: "filter-card" }, [
     searchCardTitle,
     searchField,
-    el("div", { className: "filter-card__subtitle", text: copy.recommended || "" }),
+    searchCardSubtitle,
     procList,
   ]);
   const searchPanel = wrapPanel(searchCard);
@@ -395,12 +416,12 @@ export function createFilterPopup({
     const proc = procedureLabel();
     procChip.setFilled(proc);
     searchFieldClear.hidden = !proc;
-    if (proc) searchFieldInput.value = proc;
+    searchFieldInput.value = proc || "";
 
     whenChip.setFilled(whenFilledLabel());
     whereChip.setFilled(whereFilledLabel());
 
-    if (homeInput) homeInput.value = proc;
+    if (homeInput) homeInput.value = proc || "";
   }
 
   function clearProcedure() {
@@ -438,33 +459,55 @@ export function createFilterPopup({
   function renderProcedures() {
     clear(procList);
     const q = state.procedureQuery.trim().toLowerCase();
-    const list = (procedures || []).filter((p) => {
+    const list = catalogForTab().filter((p) => {
       if (!q) return true;
       return (
-        p.title.toLowerCase().includes(q) || p.subtitle.toLowerCase().includes(q)
+        (p.title || "").toLowerCase().includes(q) ||
+        (p.subtitle || "").toLowerCase().includes(q)
       );
     });
 
-    list.forEach((item) => {
+    list.forEach((item, index) => {
       const active = state.procedure?.id === item.id;
-      procList.append(
-        el(
-          "button",
-          {
-            className: `filter-proc${active ? " is-active" : ""}`,
-            type: "button",
-            "data-proc-id": item.id,
-          },
-          [
-            el("img", { className: "filter-proc__img", src: item.image, alt: "" }),
-            el("div", { className: "filter-proc__text" }, [
-              el("div", { className: "filter-proc__title", text: item.title }),
-              el("div", { className: "filter-proc__sub", text: item.subtitle }),
-            ]),
-          ]
-        )
+      const row = el(
+        "button",
+        {
+          className: `filter-proc${active ? " is-active" : ""}`,
+          type: "button",
+          "data-proc-id": item.id,
+        },
+        [
+          el("img", { className: "filter-proc__img", src: item.image, alt: "" }),
+          el("div", { className: "filter-proc__text" }, [
+            el("div", { className: "filter-proc__title", text: item.title }),
+            el("div", { className: "filter-proc__sub", text: item.subtitle }),
+          ]),
+        ]
       );
+      if (procList.classList.contains("is-animating")) {
+        row.style.setProperty("--proc-i", String(Math.min(index, 8)));
+      }
+      procList.append(row);
     });
+  }
+
+  function animateCatalogSwap(next) {
+    procList.classList.add("is-leaving");
+    window.setTimeout(() => {
+      next();
+      procList.classList.remove("is-leaving");
+      procList.classList.add("is-animating");
+      void procList.offsetWidth;
+      requestAnimationFrame(() => {
+        procList.classList.add("is-ready");
+        window.setTimeout(() => {
+          procList.classList.remove("is-animating", "is-ready");
+          procList.querySelectorAll(".filter-proc").forEach((node) => {
+            node.style.removeProperty("--proc-i");
+          });
+        }, 420);
+      });
+    }, 180);
   }
 
   function renderCalendar() {
@@ -717,6 +760,9 @@ export function createFilterPopup({
     if (state.open) return;
     state.open = true;
     state.tab = readHomeTab();
+    if (state.procedure && !catalogForTab().some((p) => p.id === state.procedure.id)) {
+      state.procedure = null;
+    }
     state.panelLock = false;
     state.panel = "search";
 
@@ -801,7 +847,12 @@ export function createFilterPopup({
     if (filters.tab) state.tab = filters.tab;
 
     if (filters.procedureId) {
-      state.procedure = (procedures || []).find((p) => p.id === filters.procedureId) || null;
+      state.procedure =
+        catalogForTab().find((p) => p.id === filters.procedureId) ||
+        (procedures || []).find((p) => p.id === filters.procedureId) ||
+        (clinics || []).find((p) => p.id === filters.procedureId) ||
+        (specialists || []).find((p) => p.id === filters.procedureId) ||
+        null;
     }
 
     const query = filters.q || filters.procedureQuery || "";
@@ -869,9 +920,16 @@ export function createFilterPopup({
   tabsEl.addEventListener("click", (event) => {
     const btn = event.target.closest(".filter-popup__tab");
     if (!btn) return;
-    state.tab = btn.getAttribute("data-tab");
+    const nextTab = btn.getAttribute("data-tab");
+    if (nextTab === state.tab) return;
+    state.tab = nextTab;
+    state.procedure = null;
+    state.procedureQuery = "";
+    searchFieldInput.value = "";
     renderTabs();
+    syncChips();
     syncHomeTab(state.tab);
+    animateCatalogSwap(() => renderProcedures());
   });
 
   searchFieldClear.addEventListener("click", (event) => {
@@ -893,7 +951,7 @@ export function createFilterPopup({
     const btn = event.target.closest(".filter-proc");
     if (!btn) return;
     const id = btn.getAttribute("data-proc-id");
-    state.procedure = (procedures || []).find((p) => p.id === id) || null;
+    state.procedure = catalogForTab().find((p) => p.id === id) || null;
     if (state.procedure) {
       searchFieldInput.value = state.procedure.subtitle;
       state.procedureQuery = state.procedure.subtitle;

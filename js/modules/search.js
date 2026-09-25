@@ -52,6 +52,8 @@ export function bindSearch(root, data, filterData = {}) {
       tabs: data.tabs || [],
       labels: filterData.labels || {},
       procedures: filterData.procedures || [],
+      clinics: filterData.clinics || [],
+      specialists: filterData.specialists || [],
       mapPins: filterData.mapPins || [],
       timeSlots: filterData.timeSlots || [],
       initialFilters: filterData.initialFilters || null,

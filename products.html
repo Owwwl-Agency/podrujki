@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/modules/header.css" />
     <link rel="stylesheet" href="css/modules/search.css" />
     <link rel="stylesheet" href="css/modules/filter-popup.css" />
+    <link rel="stylesheet" href="css/modules/results-filters.css" />
     <link rel="stylesheet" href="css/modules/results.css" />
   </head>
   <body class="page-results">
@@ -38,14 +39,16 @@
       <main class="app__main results-main">
         <div class="results-sticky">
           <section class="results-search" data-block="search">
-            <div class="results-search__field search__field">
-              <img src="assets/icons/search.svg" alt="" />
-              <input
-                class="search__input results-search__input"
-                type="search"
-                placeholder="Поиск услуг, клиник, специалистов"
-                readonly
-              />
+            <div class="results-search__row">
+              <div class="results-search__field search__field">
+                <img src="assets/icons/search.svg" alt="" />
+                <input
+                  class="search__input results-search__input"
+                  type="search"
+                  placeholder="Поиск услуг, клиник, специалистов"
+                  readonly
+                />
+              </div>
               <button class="results-search__map" type="button" aria-label="На карте">
                 <img src="assets/icons/map-dark.svg" alt="" />
               </button>

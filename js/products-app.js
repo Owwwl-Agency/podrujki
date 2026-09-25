@@ -1,12 +1,18 @@
 import { loadProductsPage } from "./services/data.js";
 import { bindHeader } from "./modules/header.js";
 import { bindSearch } from "./modules/search.js";
+import { createResultsFilters } from "./modules/results-filters.js";
 import { el, clear } from "./utils/dom.js";
 import {
   readFiltersFromLocation,
   filtersToParams,
   saveFilters,
 } from "./utils/filters-query.js";
+import {
+  loadResultsFilters,
+  countActiveFilters,
+} from "./utils/results-filters-state.js";
+import { bindScrollChrome } from "./utils/scroll-chrome.js";
 
 const app = document.querySelector("#app");
 
@@ -14,17 +20,69 @@ function formatPrice(value) {
   return `${Number(value).toLocaleString("ru-RU")}₽`;
 }
 
-function renderTags(root, tags, onOpenFilters) {
+function bindStickyFiltersTag(tagsRoot) {
+  if (!tagsRoot) return;
+  const filtersTag = tagsRoot.querySelector(".results-tag--filters");
+  const track = tagsRoot.querySelector(".results-tags__track");
+  if (!filtersTag || !track) return;
+
+  const sync = () => {
+    filtersTag.classList.toggle("is-compact", track.scrollLeft > 8);
+  };
+
+  track.addEventListener("scroll", sync, { passive: true });
+  sync();
+}
+
+function syncFiltersTagCount(root, count) {
+  const btn = root?.querySelector(".results-tag--filters");
+  if (!btn) return;
+  let badge = btn.querySelector(".results-tag__count");
+  if (count > 0) {
+    if (!badge) {
+      badge = el("span", { className: "results-tag__count" });
+      btn.append(badge);
+    }
+    badge.textContent = String(count);
+  } else if (badge) {
+    badge.remove();
+  }
+}
+
+function renderTags(root, tags, { onOpenFilters, activeCount = 0 } = {}) {
   if (!root) return;
   clear(root);
 
-  (tags || []).forEach((tag) => {
-    const children = [];
-    if (tag.icon) {
-      children.push(el("img", { src: tag.icon, alt: "" }));
-    }
-    children.push(document.createTextNode(tag.label));
+  const filters = (tags || []).find((tag) => tag.id === "filters");
+  const others = (tags || []).filter((tag) => tag.id !== "filters");
 
+  if (filters) {
+    const label = el("span", { className: "results-tag__label", text: filters.label });
+    const children = [
+      filters.icon ? el("img", { src: filters.icon, alt: "" }) : null,
+      label,
+    ];
+    if (activeCount > 0) {
+      children.push(
+        el("span", { className: "results-tag__count", text: String(activeCount) })
+      );
+    }
+    const btn = el(
+      "button",
+      {
+        className: "results-tag results-tag--filters",
+        type: "button",
+        "data-tag": filters.id,
+        "aria-label": filters.label,
+      },
+      children
+    );
+    btn.addEventListener("click", () => onOpenFilters?.());
+    root.append(btn);
+  }
+
+  const track = el("div", { className: "results-tags__track" });
+  others.forEach((tag) => {
     const btn = el(
       "button",
       {
@@ -32,15 +90,13 @@ function renderTags(root, tags, onOpenFilters) {
         type: "button",
         "data-tag": tag.id,
       },
-      children
+      [document.createTextNode(tag.label)]
     );
-
-    btn.addEventListener("click", () => {
-      onOpenFilters?.();
-    });
-
-    root.append(btn);
+    btn.addEventListener("click", () => onOpenFilters?.());
+    track.append(btn);
   });
+  root.append(track);
+  bindStickyFiltersTag(root);
 }
 
 function setSelectedCard(root, selectedId) {
@@ -150,13 +206,11 @@ function syncBar(barRoot, mainRoot, item) {
   mainRoot?.classList.add("is-bar-open");
 }
 
-function syncSearchValue(searchRoot, filters) {
+function syncSearchValue(searchRoot, filters, placeholder = "Поиск услуг, клиник, специалистов") {
   const input = searchRoot?.querySelector(".search__input");
   if (!input) return;
-  if (filters.q) {
-    input.value = filters.q;
-    input.placeholder = filters.q;
-  }
+  input.placeholder = placeholder;
+  input.value = filters?.q || "";
 }
 
 function writeFiltersToUrl(state) {
@@ -187,20 +241,42 @@ async function init() {
     const barRoot = app.querySelector('[data-block="bar"]');
     const mainRoot = app.querySelector(".results-main");
 
+    const searchPlaceholder =
+      data.search?.placeholder || "Поиск услуг, клиник, специалистов";
+
     const popup = bindSearch(searchRoot, data.search, {
       labels: data.filter,
       procedures: data.procedures,
+      clinics: data.searchClinics,
+      specialists: data.searchSpecialists,
       mapPins: data.mapPins,
       timeSlots: data.timeSlots,
       initialFilters: filters,
       onSubmit: (state) => {
         filters = writeFiltersToUrl(state);
-        syncSearchValue(searchRoot, filters);
+        syncSearchValue(searchRoot, filters, searchPlaceholder);
       },
     });
 
-    syncSearchValue(searchRoot, filters);
-    renderTags(tagsRoot, data.tags, () => popup?.open());
+    const resultsFilters = createResultsFilters({
+      initial: loadResultsFilters(),
+      onApply: () => {
+        /* applied state persists in session; list filtering later */
+      },
+      onChange: (count) => {
+        syncFiltersTagCount(tagsRoot, count);
+      },
+    });
+
+    syncSearchValue(searchRoot, filters, searchPlaceholder);
+    renderTags(tagsRoot, data.tags, {
+      onOpenFilters: () => resultsFilters.open(),
+      activeCount: countActiveFilters(resultsFilters.getApplied()),
+    });
+
+    bindScrollChrome([
+      app.querySelector('[data-block="header"]'),
+    ]);
 
     const mapBtn = searchRoot?.querySelector(".results-search__map");
     mapBtn?.addEventListener("click", (event) => {

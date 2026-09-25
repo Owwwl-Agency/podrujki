@@ -15,6 +15,31 @@
   padding: 0 20px;
   background: var(--color-surface);
   box-shadow: var(--shadow-soft);
+  transition:
+    transform 0.55s cubic-bezier(0.22, 0.61, 0.18, 1),
+    opacity 0.45s cubic-bezier(0.22, 0.61, 0.18, 1);
+  will-change: transform, opacity;
+}
+
+.header.is-chrome-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+html.chrome-hidden .search,
+html.chrome-hidden .results-sticky {
+  top: 0;
+}
+
+html.chrome-hidden .results-tags {
+  top: 80px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header {
+    transition: none !important;
+  }
 }
 
 .header__back {

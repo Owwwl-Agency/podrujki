@@ -7,6 +7,8 @@ import { newsItems } from "../data/news.js";
 import { specialists } from "../data/specialists.js";
 import { products } from "../data/products.js";
 import { procedures } from "../data/procedures.js";
+import { searchClinics } from "../data/search-clinics.js";
+import { searchSpecialists } from "../data/search-specialists.js";
 import { mapPins } from "../data/map-pins.js";
 import { timeSlots } from "../data/time-slots.js";
 import { serviceResults } from "../data/service-results.js";
@@ -32,6 +34,8 @@ export async function loadHomePage() {
     search: dict.search,
     filter: dict.filter,
     procedures,
+    searchClinics,
+    searchSpecialists,
     mapPins,
     timeSlots,
     categories,
@@ -58,6 +62,8 @@ export async function loadProductsPage() {
     },
     filter: dict.filter,
     procedures,
+    searchClinics,
+    searchSpecialists,
     mapPins,
     timeSlots,
     services: serviceResults,

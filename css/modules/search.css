@@ -6,6 +6,7 @@
   background: var(--color-surface);
   box-shadow: var(--shadow-soft);
   border-bottom: 1px solid var(--color-border-soft);
+  transition: top 0.55s cubic-bezier(0.22, 0.61, 0.18, 1);
 }
 
 .search__field {
