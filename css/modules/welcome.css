@@ -1,0 +1,163 @@
+.page-welcome {
+  background: var(--color-bg);
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--app-max);
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 20px;
+  background: var(--color-bg);
+  container-type: inline-size;
+}
+
+/* —— Gallery —— */
+
+/* Sizes are relative to the page content width (350px in the design) */
+.welcome-gallery {
+  --card-gap: min(4.71cqw, 24px);
+  --col-w: min(46.9cqw, 240px);
+  --cycle: 36s;
+
+  position: relative;
+  /* Basis 0 so the tall looping tracks never size the gallery */
+  flex: 1 1 0;
+  min-height: 320px;
+  display: flex;
+  justify-content: center;
+  gap: var(--card-gap);
+  overflow: hidden;
+  border: 2px solid #ebe9e5;
+  border-radius: 10px;
+  background: #f1efec;
+  isolation: isolate;
+}
+
+/* Soft top/bottom depth + 5% warm tint over the photos */
+.welcome-gallery::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: rgba(12, 10, 9, 0.05);
+  box-shadow:
+    inset 0 4px 10px -4px rgba(0, 0, 0, 0.2),
+    inset 0 -4px 10px -4px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-gallery__col {
+  flex: 0 0 var(--col-w);
+  width: var(--col-w);
+}
+
+.welcome-gallery__track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+  /* Trailing gap keeps both halves equal so -50% lands exactly on the copy */
+  padding-bottom: var(--card-gap);
+  will-change: transform;
+  animation: welcome-scroll-up var(--cycle) linear infinite;
+}
+
+.welcome-gallery__col--up .welcome-gallery__track {
+  animation-name: welcome-scroll-up;
+}
+
+.welcome-gallery__col--down .welcome-gallery__track {
+  animation-name: welcome-scroll-down;
+  /* Half-card offset against the outer columns, as in the design */
+  animation-delay: calc(var(--cycle) / -8);
+}
+
+.welcome-gallery__card {
+  flex: 0 0 auto;
+  aspect-ratio: 164 / 236;
+  overflow: hidden;
+  background: #e8e4df;
+  box-shadow: 4px 4px 14px 0 rgba(0, 0, 0, 0.1);
+}
+
+.welcome-gallery__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+@keyframes welcome-scroll-up {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -50%, 0);
+  }
+}
+
+@keyframes welcome-scroll-down {
+  from {
+    transform: translate3d(0, -50%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-gallery__track {
+    animation: none;
+  }
+}
+
+/* —— Copy + actions —— */
+
+.welcome__title {
+  margin-top: 30px;
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28px;
+  color: var(--color-black);
+  text-align: center;
+}
+
+.welcome__text {
+  margin-top: 15px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-text);
+  text-align: center;
+  text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.15);
+}
+
+.welcome__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.welcome__btn {
+  width: 100%;
+  border: 0;
+  font-family: var(--font-sans);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease), opacity 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.welcome__btn:active {
+  transform: scale(0.98);
+}
+
+.welcome__btn.btn--dark {
+  color: var(--color-on-dark);
+}
