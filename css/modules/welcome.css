@@ -3,16 +3,72 @@
 }
 
 .welcome {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   width: 100%;
   max-width: var(--app-max);
   min-height: 100vh;
   min-height: 100dvh;
   margin: 0 auto;
-  padding: 20px;
   background: var(--color-bg);
+  overflow-x: clip;
+  transition: opacity 0.3s var(--ease);
+}
+
+/* —— Steps: stacked in one cell, slide + fade between them —— */
+
+.welcome-step {
+  --step-shift: 32px;
+
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
   container-type: inline-size;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(var(--step-shift), 0, 0);
+  transition:
+    opacity 0.4s var(--ease),
+    transform 0.6s var(--ease),
+    visibility 0s linear 0.6s;
+}
+
+.welcome-step.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 0.45s var(--ease) 0.08s,
+    transform 0.6s var(--ease),
+    visibility 0s;
+}
+
+.welcome-step.is-before {
+  --step-shift: -32px;
+}
+
+.welcome.is-instant .welcome-step {
+  transition: none;
+}
+
+.welcome.is-leaving {
+  opacity: 0;
+}
+
+.welcome-step--intro {
+  padding: 20px;
+}
+
+.welcome-step:not(.is-active) .welcome-gallery__track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-step {
+    --step-shift: 0px;
+  }
 }
 
 /* —— Gallery —— */
@@ -118,7 +174,7 @@
 /* —— Copy + actions —— */
 
 .welcome__title {
-  margin-top: 30px;
+  margin-top: 37px;
   font-family: var(--font-serif);
   font-size: 24px;
   font-weight: 500;
@@ -160,4 +216,488 @@
 
 .welcome__btn.btn--dark {
   color: var(--color-on-dark);
+}
+
+/* —— Interests step —— */
+
+.welcome-bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding: 0 20px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.welcome-bar__back {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.welcome-bar__skip {
+  height: 33px;
+  padding: 0 15px;
+  border: 1px solid var(--color-border);
+  border-radius: 60px;
+  background: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 13px;
+  letter-spacing: 0.12px;
+  color: var(--color-text-soft);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.welcome-interests {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 20px;
+}
+
+.welcome-interests .welcome__text {
+  margin-top: 10px;
+}
+
+.welcome-interests .welcome__actions {
+  margin-top: 30px;
+}
+
+/* —— Bubbles —— */
+
+.interest-field {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 300px;
+}
+
+.interest-bubble {
+  --tint: 0.2;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #d9d4ce;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  cursor: pointer;
+  isolation: isolate;
+  will-change: transform;
+  transition: box-shadow 0.5s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.interest-bubble:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 3px;
+}
+
+.interest-bubble__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Glass look: blurred photo, slightly zoomed so the soft edge stays inside */
+  filter: blur(9px);
+  transform: scale(1.18);
+  transition:
+    filter 0.6s var(--ease),
+    transform 0.6s var(--ease);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.interest-bubble__tint,
+.interest-bubble__shade {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transition: opacity 0.5s var(--ease);
+}
+
+.interest-bubble__tint {
+  background: rgba(32, 32, 32, var(--tint));
+}
+
+.interest-bubble__shade {
+  opacity: 0;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.3), rgba(249, 247, 246, 0.12));
+  box-shadow: inset -2px 2px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.interest-bubble__label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: max-content;
+  transform: translate(-50%, -50%) scale(var(--label-scale, 1));
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 15px;
+  letter-spacing: 0.14px;
+  color: var(--color-on-dark);
+  text-align: center;
+  white-space: pre-line;
+  pointer-events: none;
+}
+
+.interest-bubble.is-selected {
+  box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.interest-bubble.is-selected .interest-bubble__img {
+  filter: blur(0);
+  transform: scale(1);
+}
+
+.interest-bubble.is-selected .interest-bubble__tint {
+  opacity: 0;
+}
+
+.interest-bubble.is-selected .interest-bubble__shade {
+  opacity: 1;
+}
+
+/* —— Progress ring —— */
+
+.welcome-progress {
+  flex-shrink: 0;
+  align-self: center;
+  width: 30px;
+  height: 30px;
+  margin-top: 20px;
+  overflow: visible;
+}
+
+.welcome-progress__track,
+.welcome-progress__bar {
+  fill: none;
+  stroke-width: 3;
+}
+
+.welcome-progress__track {
+  stroke: rgba(32, 32, 32, 0.2);
+}
+
+.welcome-progress__bar {
+  stroke: var(--color-text);
+  /* Gap longer than the path so an empty ring leaves no sliver of dash at the start */
+  stroke-dasharray: 100 110;
+  stroke-dashoffset: 100;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transform-box: fill-box;
+  transition: stroke-dashoffset 0.6s var(--ease);
+}
+
+/* —— Locations step —— */
+
+.welcome-locations {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 30px 20px 20px;
+}
+
+.welcome-locations .welcome__text {
+  margin-top: 10px;
+}
+
+.welcome-locations .welcome__actions {
+  margin-top: 30px;
+}
+
+.welcome-map {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 280px;
+  overflow: hidden;
+  border: 2px solid #ebe9e5;
+  border-radius: 10px;
+  background: #e8e6e1;
+  isolation: isolate;
+}
+
+.welcome-map__canvas,
+.welcome-map__canvas.leaflet-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #e8e6e1;
+  font: inherit;
+}
+
+.welcome-map__search {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  left: 20px;
+  z-index: 2;
+}
+
+.welcome-map__field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgba(32, 32, 32, 0.15);
+  border-radius: 10px;
+  background: var(--color-white);
+  box-shadow: 2px 2px 15px 0 rgba(0, 0, 0, 0.1);
+  cursor: text;
+}
+
+.welcome-map__field img {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.welcome-map__field input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 13px;
+  letter-spacing: 0.12px;
+  color: var(--color-text);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.welcome-map__field input::placeholder {
+  color: var(--color-text-faint);
+}
+
+.welcome-map__field input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.welcome-map__suggest {
+  margin-top: 6px;
+  padding: 5px;
+  overflow: hidden;
+  border: 1px solid rgba(32, 32, 32, 0.15);
+  border-radius: 10px;
+  background: var(--color-white);
+  box-shadow: 2px 2px 15px 0 rgba(0, 0, 0, 0.1);
+  list-style: none;
+  animation: welcome-suggest-in 0.25s var(--ease);
+}
+
+.welcome-map__suggest[hidden] {
+  display: none;
+}
+
+.welcome-map__option {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  font-family: var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.welcome-map__option:hover,
+.welcome-map__option:focus-visible {
+  background: var(--color-bg);
+  outline: none;
+}
+
+.welcome-map__option-title {
+  font-size: 13px;
+  line-height: 15px;
+  color: var(--color-text);
+}
+
+.welcome-map__option-sub {
+  font-size: 11px;
+  line-height: 13px;
+  color: var(--color-text-muted);
+}
+
+.welcome-map__empty {
+  padding: 9px 10px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 13px;
+  color: var(--color-text-muted);
+}
+
+@keyframes welcome-suggest-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -4px, 0);
+  }
+}
+
+.welcome-map__locate {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-white);
+  box-shadow: 1px 3px 5px 0 rgba(0, 0, 0, 0.15);
+  line-height: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.welcome-map__locate img {
+  width: 19px;
+  height: 19px;
+}
+
+.welcome-pin {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-white);
+  box-shadow: 1px 3px 5px 0 rgba(0, 0, 0, 0.15);
+  animation: welcome-pin-in 0.35s var(--ease);
+}
+
+.welcome-pin img {
+  width: 15px;
+  height: 15px;
+}
+
+.welcome-pin--draft {
+  width: 28px;
+  height: 28px;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  transform-origin: 50% 100%;
+}
+
+.welcome-pin--draft img {
+  width: 28px;
+  height: 28px;
+}
+
+@keyframes welcome-pin-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0) scale(0.6);
+  }
+}
+
+/* —— Location type chips —— */
+
+.welcome-places {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 30px;
+}
+
+.welcome-place {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid rgba(32, 32, 32, 0.45);
+  border-radius: 5px;
+  background: none;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 0.12px;
+  color: var(--color-text-soft);
+  cursor: pointer;
+  transition:
+    background-color 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    color 0.3s var(--ease),
+    transform 0.2s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.welcome-place:active {
+  transform: scale(0.96);
+}
+
+.welcome-place img {
+  flex-shrink: 0;
+  height: 14px;
+  width: auto;
+  transition: filter 0.3s var(--ease);
+}
+
+.welcome-place.is-saved {
+  border-color: var(--color-text);
+  background: var(--color-text);
+  color: var(--color-on-dark);
+}
+
+.welcome-place.is-saved img {
+  filter: invert(1);
+}
+
+/* A picked point is waiting for a type: nudge the chips */
+.welcome-places.is-ready .welcome-place {
+  border-color: var(--color-text);
+  color: var(--color-text);
+  animation: welcome-place-nudge 0.5s var(--ease);
+}
+
+.welcome-places.is-ready .welcome-place.is-saved {
+  color: var(--color-on-dark);
+}
+
+@keyframes welcome-place-nudge {
+  40% {
+    transform: translate3d(0, -3px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-places.is-ready .welcome-place,
+  .welcome-map__suggest,
+  .welcome-pin {
+    animation: none;
+  }
 }

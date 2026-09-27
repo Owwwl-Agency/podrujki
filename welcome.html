@@ -14,23 +14,122 @@
     <link rel="stylesheet" href="css/base/variables.css" />
     <link rel="stylesheet" href="css/base/fonts.css" />
     <link rel="stylesheet" href="css/layout/app.css" />
+    <link rel="stylesheet" href="css/modules/header.css" />
     <link rel="stylesheet" href="css/modules/welcome.css" />
   </head>
   <body class="page-welcome">
     <main class="welcome">
-      <div class="welcome-gallery" data-block="welcome-gallery" aria-hidden="true"></div>
+      <section class="welcome-step welcome-step--intro is-active" data-step="intro">
+        <div class="welcome-gallery" data-block="welcome-gallery" aria-hidden="true"></div>
 
-      <h1 class="welcome__title">Добро пожаловать<br />в “Подружки”</h1>
-      <p class="welcome__text">
-        Находите нужную процедуру, выбирайте клинику рядом и записывайтесь на приём — прямо здесь, без звонков.
-      </p>
+        <h1 class="welcome__title">Добро пожаловать<br />в “Подружки”</h1>
+        <p class="welcome__text">
+          Находите нужную процедуру, выбирайте клинику рядом и записывайтесь на приём — прямо здесь, без звонков.
+        </p>
 
-      <div class="welcome__actions">
-        <button class="btn btn--dark welcome__btn" type="button" data-action="setup">
-          Настроить приложение
-        </button>
-        <a class="btn btn--cream welcome__btn" href="index.html">Перейти в приложение</a>
-      </div>
+        <div class="welcome__actions">
+          <button class="btn btn--dark welcome__btn" type="button" data-action="setup">
+            Настроить приложение
+          </button>
+          <a class="btn btn--cream welcome__btn" href="index.html">Перейти в приложение</a>
+        </div>
+      </section>
+
+      <section class="welcome-step welcome-step--interests" data-step="interests" aria-hidden="true" inert>
+        <div class="welcome-bar">
+          <button class="header__back welcome-bar__back" type="button" data-action="back" aria-label="Назад">
+            <img src="assets/icons/arrow-left.svg" alt="" />
+          </button>
+          <button class="welcome-bar__skip" type="button" data-action="skip-interests">Пропустить</button>
+        </div>
+
+        <div class="welcome-interests">
+          <div class="interest-field" data-block="interest-bubbles" role="group" aria-label="Направления"></div>
+
+          <svg
+            class="welcome-progress"
+            data-block="welcome-progress"
+            viewBox="0 0 30 30"
+            role="progressbar"
+            aria-label="Выбрано направлений"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+          >
+            <circle class="welcome-progress__track" cx="15" cy="15" r="13.5" />
+            <circle class="welcome-progress__bar" cx="15" cy="15" r="13.5" pathLength="100" />
+          </svg>
+
+          <h2 class="welcome__title">Что вас интересует?</h2>
+          <p class="welcome__text">
+            Выберите одно или несколько направлений. Мы учтём ваши интересы в рекомендациях и поможем найти подходящие
+            клиники рядом с вами.
+          </p>
+
+          <div class="welcome__actions">
+            <button class="btn btn--dark welcome__btn" type="button" data-action="save-interests">Продолжить</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="welcome-step welcome-step--locations" data-step="locations" aria-hidden="true" inert>
+        <div class="welcome-bar">
+          <button class="header__back welcome-bar__back" type="button" data-action="back" aria-label="Назад">
+            <img src="assets/icons/arrow-left.svg" alt="" />
+          </button>
+          <button class="welcome-bar__skip" type="button" data-action="skip-locations">Пропустить</button>
+        </div>
+
+        <div class="welcome-locations">
+          <div class="welcome-map" data-block="location-picker">
+            <div class="welcome-map__canvas" data-role="map"></div>
+
+            <div class="welcome-map__search">
+              <label class="welcome-map__field">
+                <img src="assets/icons/search.svg" alt="" />
+                <input
+                  type="search"
+                  data-role="search"
+                  placeholder="Введите адрес"
+                  autocomplete="off"
+                  enterkeyhint="search"
+                  aria-label="Адрес"
+                />
+              </label>
+              <ul class="welcome-map__suggest" data-role="suggest" role="listbox" hidden></ul>
+            </div>
+
+            <button class="welcome-map__locate" type="button" data-role="locate" aria-label="Моё местоположение">
+              <img src="assets/icons/map-direction.svg" alt="" />
+            </button>
+          </div>
+
+          <div class="welcome-places" data-block="location-types" role="group" aria-label="Сохранить как">
+            <button class="welcome-place" type="button" data-location-type="home" aria-pressed="false">
+              <img src="assets/icons/home.svg" alt="" width="15" height="14" />
+              <span>Дом</span>
+            </button>
+            <button class="welcome-place" type="button" data-location-type="work" aria-pressed="false">
+              <img src="assets/icons/briefcase.svg" alt="" width="16" height="14" />
+              <span>Работа</span>
+            </button>
+            <button class="welcome-place" type="button" data-location-type="other" aria-pressed="false">
+              <img src="assets/icons/map-marker.svg" alt="" width="14" height="14" />
+              <span>Другое</span>
+            </button>
+          </div>
+
+          <h2 class="welcome__title">Где вам удобно?</h2>
+          <p class="welcome__text">
+            Сохраните локации, рядом с которыми вам удобно посещать клиники. Мы поможем находить подходящие услуги рядом
+            с вами.
+          </p>
+
+          <div class="welcome__actions">
+            <button class="btn btn--dark welcome__btn" type="button" data-action="save-locations">Продолжить</button>
+          </div>
+        </div>
+      </section>
     </main>
 
     <script type="module" src="js/welcome-app.js"></script>
